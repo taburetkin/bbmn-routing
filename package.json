@@ -18,7 +18,8 @@
     "backbone": "^1.3.3",
 	"backbone.marionette": ">= 3.0.0",
 	"bbmn-core": ">= 1.0.0",
-	"bbmn-utils": ">= 1.0.0"	
+	"bbmn-utils": ">= 1.0.0",
+	"bbmn-components": "https://github.com/taburetkin/bbmn-components"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -55,9 +56,5 @@
     "sinon": "^6.1.2",
     "sinon-chai": "^3.2.0",
     "underscore": "^1.9.1"
-  },
-  "dependencies": {
-
-	"bbmn-components": "https://github.com/taburetkin/bbmn-components"
   }
 }
