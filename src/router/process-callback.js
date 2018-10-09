@@ -1,3 +1,4 @@
+import _ from 'underscore';
 
 function toPromise(arg, resolve = true){
 	if (arg instanceof Promise || (arg && _.isFunction(arg.then)))

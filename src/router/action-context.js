@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 export function createActionContext(router, routeContext, fragment, options = {}) {
 
 	let rawArgs = router._extractParameters(routeContext.route, fragment);

@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import {  getOption, paramsToObject as paramStringToObject } from 'bbmn-utils';
 import { Router as BbRouter } from 'bbmn-core';
 
