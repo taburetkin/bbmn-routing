@@ -15,13 +15,13 @@ let babelConfig = {
 };
 
 let rollupGlobals = {
-	'backbone': 'Backbone',
-	'backbone.marionette': 'Mn',
-	'jquery': '$',
-	'underscore': '_',
-	'bbmn-core': 'bbmn',
-	'bbmn-utils': 'bbmn.utils',
-	'bbmn-components': 'bbmn.components',
+	// 'backbone': 'Backbone',
+	// 'backbone.marionette': 'Mn',
+	// 'jquery': '$',
+	// 'underscore': '_',
+	// 'bbmn-core': 'bbmn',
+	// 'bbmn-utils': 'bbmn.utils',
+	// 'bbmn-components': 'bbmn.components',
 };
 
 

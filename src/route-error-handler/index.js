@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import $ from 'jquery';
+//import $ from 'jquery';
 
 export default {
 	handlers: {

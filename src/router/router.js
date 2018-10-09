@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import {  getOption, paramsToObject as paramStringToObject } from 'bbmn-utils';
-import { Router as BbRouter } from 'bbmn-core';
+import { Router as BbRouter, history } from 'bbmn-core';
 
 //import paramStringToObject from '../../../utils/params-to-object/index.js';
 //import { Backbone, Router as BbRouter } from '../../../vendors/backbone.js';
@@ -199,7 +199,7 @@ const Router = BbRouter.extend({
 
 	//finally, putting handler to the backbone.history.handlers
 	registerRouteContext(context){
-		Backbone.history.route(context.route, context.callbackWrapper, context);
+		history.route(context.route, context.callbackWrapper, context);
 	},
 
 	//store registered context for further use
@@ -252,7 +252,7 @@ const Router = BbRouter.extend({
 
 	triggerEvent(event, context){
 		this.trigger(event, context);
-		Backbone.history.trigger(event, context);
+		history.trigger(event, context);
 	},
 
 
