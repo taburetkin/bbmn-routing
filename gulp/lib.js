@@ -5,11 +5,13 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import size from 'gulp-size';
 import json from 'rollup-plugin-json';
+import addImports from './add-imports.js';
+
 
 let babelConfig = {
 	presets: [['env', { modules: false }]],
 	babelrc: false,
-	plugins: ['external-helpers']
+	//plugins: ['external-helpers']
 };
 
 let rollupGlobals = {
@@ -29,6 +31,11 @@ let getRollupConfig = (format, babelcfg = babelConfig) => {
 		allowRealFiles: true,
 		plugins: [
 			json(),
+			addImports({
+				modules: {
+					'_':'underscore'
+				}
+			}),
 			resolve({
 				module: true,
 			}),
@@ -40,20 +47,24 @@ let getRollupConfig = (format, babelcfg = babelConfig) => {
 			name: 'bbmn.routing',
 			'globals': rollupGlobals,
 			exports: 'named',
+			sourcemap: true,
 		},
-		input:'src/index.js'
+		input:'src/index.js',
 	}
 };
 
+const includes = 'import _xx_ from \'underscore-shmanderscor\';\r\n';
+
+
 function lib(format) {
 	let rollupConfig = getRollupConfig(format);
-	gulp.src('src/index.js')
+	gulp.src('src/index.js')		
 		.pipe(sourcemaps.init())
 		// note that UMD and IIFE format requires `name` but it will be inferred from the source file name `mylibrary.js`
 		.pipe(rollup(rollupConfig))
+		.pipe(size({ title: format, showFiles: true}))
 		// save sourcemap as separate file (in the same folder)
 		.pipe(sourcemaps.write(''))
-		.pipe(size())
 		.pipe(gulp.dest('lib/' + format));
 }
 
