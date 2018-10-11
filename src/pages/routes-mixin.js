@@ -6,12 +6,15 @@ export default {
 	initializeRoutes(){
 		if (this.initializeRouter()) {
 			this._buildRoutesContexts();
-
 		}
 	},
 	initializeRouter(){		
 		if(this.getOption('shouldCreateRouter') && !this.router) {
 			this.router = this._createRouter();
+			this._shouldRegisterAllRoutes = true;
+		}
+
+		if(this.getOption('shouldRegisterAllRoutes')) {
 			this._shouldRegisterAllRoutes = true;
 		}
 

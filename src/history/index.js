@@ -65,8 +65,13 @@ const historyApi = {
 		if(history.loadUrl !== historyApi.loadUrl)
 			history.loadUrl = historyApi.loadUrl;
 	
-		return history.start(options);
+		let result = history.start(options);
+
+		return result;
 	},
+	isStarted(){
+		return !!history.started;
+	}
 };
 
 

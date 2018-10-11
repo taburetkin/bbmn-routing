@@ -15,8 +15,9 @@ export default BasePage.extend({
 	constructor(opts = {}){
 		BasePage.apply(this, arguments);
 
+		//root and parent is childrenable options
 		this.mergeOptions(opts, ['root','parent','router','canNotStart','onStart','onBeginStart', 'onBeforeStart', 'onEndStart', 'onStop', 'onBeginStop', 'onBeforeStop', 'onEndStop']);
-		
+
 		// resides in routes-mixin
 		this.initializeRoutes();
 
@@ -40,7 +41,7 @@ export default BasePage.extend({
 
 	buildChildOptions(options){
 		return _.extend({
-			root: this.root,
+			root: this.getRoot(),
 			parent: this.parent,
 			router: this.router,
 		}, options);
@@ -53,6 +54,7 @@ export default BasePage.extend({
 		return parent && parent.getChildren(options) || [];
 
 	},
+	
 	getHashes(){
 		let parent = this.getParent();
 		let root = this.getRoot();
@@ -83,13 +85,17 @@ export default BasePage.extend({
 	},
 
 	getRoot(){
-		return this.root;
+		if (this.root === true) {
+			return this;
+		} else {
+			return this.root;
+		}
 	},
 	getAllPages(opts = {}){
 		
 		let options = _.extend({}, opts, { includeSelf: true });
 		delete options.map;
-		let pages = this.root.getAllChildren(options);
+		let pages = this.getRoot().getAllChildren(options);
 
 		if (_.isFunction(opts.map)) {
 			return _(pages).chain().map(opts.map).filter(f => !!f).value();
