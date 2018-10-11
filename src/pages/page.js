@@ -16,7 +16,7 @@ export default BasePage.extend({
 		BasePage.apply(this, arguments);
 
 		//root and parent is childrenable options
-		this.mergeOptions(opts, ['root','parent','router','canNotStart','onStart','onBeginStart', 'onBeforeStart', 'onEndStart', 'onStop', 'onBeginStop', 'onBeforeStop', 'onEndStop']);
+		this.mergeOptions(opts, ['app','router','canNotStart','onStart','onBeginStart', 'onBeforeStart', 'onEndStart', 'onStop', 'onBeginStop', 'onBeforeStop', 'onEndStop']);
 
 		// resides in routes-mixin
 		this.initializeRoutes();
@@ -26,6 +26,8 @@ export default BasePage.extend({
 		
 		// resides in routes-mixin
 		this.registerAllRoutes();
+
+		this.initializeEvents();
 	},
 	getOption(...args){
 		return getOption(this, ...args);
@@ -54,7 +56,7 @@ export default BasePage.extend({
 		return parent && parent.getChildren(options) || [];
 
 	},
-	
+
 	getHashes(){
 		let parent = this.getParent();
 		let root = this.getRoot();
@@ -139,6 +141,26 @@ export default BasePage.extend({
 
 		return item;
 	},
+	initializeEvents(){
+		if (this._triggerOnParentInitiallized) return;
+		
+		let triggersOn = [];
+		if(this.app){
+			triggersOn.push(this.app);
+		}
+		if(this.router){
+			triggersOn.push(this.router);
+		}
+		let events = ['start', 'stop'];
+		_.each(events, event => {
+			this.on(event, () => {
+				_.each(triggersOn, parent => {
+					parent.triggerMethod('page:' + event, this);
+				});
+			});
+		});
 
+		this._triggerOnParentInitiallized = true;
+	}
 });
 

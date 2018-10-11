@@ -14,6 +14,8 @@ export default App.extend({
 		App.apply(this, arguments);
 		this.on('start', this._buildPages);
 		this.on('pages:ready', this._startHistory);
+		this.on('page:start', this._onPageStart);
+		this.on('page:stop', this._onPageStop);
 	},
 	Router: PageRouter,
 	_startHistory(){
@@ -56,5 +58,13 @@ export default App.extend({
 	buildRouter(){
 		if (this.router instanceof PageRouter) return this.router;
 		return buildByKey(this, 'Router', { ctor: PageRouter });
-	}
+	},
+	_onPageStart(page){
+		this.showPage(page);
+	},
+	showPage: _.nopp,
+	_onPageStop(page){
+		this.showPage(page);
+	},
+	hidePage: _.noop,
 });
