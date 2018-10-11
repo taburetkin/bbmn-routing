@@ -62,7 +62,7 @@ export default App.extend({
 	_onPageStart(page){
 		this.showPage(page);
 	},
-	showPage: _.nopp,
+	showPage: _.noop,
 	_onPageStop(page){
 		this.showPage(page);
 	},
