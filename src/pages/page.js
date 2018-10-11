@@ -46,6 +46,7 @@ export default BasePage.extend({
 			root: this.getRoot(),
 			parent: this.parent,
 			router: this.router,
+			app: this.app,
 		}, options);
 	},
 
@@ -143,7 +144,7 @@ export default BasePage.extend({
 	},
 	initializeEvents(){
 		if (this._triggerOnParentInitiallized) return;
-		
+
 		let triggersOn = [];
 		if(this.app){
 			triggersOn.push(this.app);
