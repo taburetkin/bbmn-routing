@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import {  getOption, paramsToObject as paramStringToObject } from 'bbmn-utils';
+import {  getOption, triggerMethod, paramsToObject as paramStringToObject } from 'bbmn-utils';
 import { Router as BbRouter, history } from 'bbmn-core';
 
 //import paramStringToObject from '../../../utils/params-to-object/index.js';
@@ -45,7 +45,7 @@ const Router = BbRouter.extend({
 	getOption(){
 		return getOption.call(this, ...arguments);
 	},
-
+	triggerMethod,
 	/*
 
 		initialize methods
