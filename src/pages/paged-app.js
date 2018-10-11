@@ -43,7 +43,9 @@ export default App.extend({
 		
 		if (this.rootPage instanceof Page) return;
 
+		this.triggerMethod('before:router:create');
 		this.router = this.buildRouter();
+		this.triggerMethod('router:create', this.router);
 
 		var RootPage = this.getOption('RootPage');
 		if (isClass(RootPage, Page)) {
