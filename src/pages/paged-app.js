@@ -47,7 +47,7 @@ export default App.extend({
 
 		var RootPage = this.getOption('RootPage');
 		if (isClass(RootPage, Page)) {
-			this.rootPage = new RootPage({ router: this.router });
+			this.rootPage = new RootPage({ router: this.router, shouldRegisterAllRoutes: true });
 		}
 
 	},	
