@@ -40,13 +40,13 @@ export default App.extend({
 	},
 	buildPages() {
 		
-		if (this.rootPage == null) return;
+		if (this.rootPage instanceof Page) return;
 
 		this.router = this.buildRouter();
 
 		var RootPage = this.getOption('rootPage');
 		if (isClass(RootPage, Page)) {
-			this.rootPage = new Page({ router: this.router });
+			this.rootPage = new RootPage({ router: this.router });
 		}
 
 	},	
