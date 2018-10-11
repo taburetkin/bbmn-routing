@@ -15,6 +15,7 @@ export default App.extend({
 		this.on('start', this._buildPages);
 		this.on('pages:ready', this._startHistory);
 	},
+	Router: PageRouter,
 	_startHistory(){
 		if (historyApi.isStarted()) return;
 
@@ -44,7 +45,7 @@ export default App.extend({
 
 		this.router = this.buildRouter();
 
-		var RootPage = this.getOption('rootPage');
+		var RootPage = this.getOption('RootPage');
 		if (isClass(RootPage, Page)) {
 			this.rootPage = new RootPage({ router: this.router });
 		}
@@ -52,6 +53,6 @@ export default App.extend({
 	},	
 	buildRouter(){
 		if (this.router instanceof PageRouter) return this.router;
-		return buildByKey(this, 'router', { ctor: PageRouter });
+		return buildByKey(this, 'Router', { ctor: PageRouter });
 	}
 });
