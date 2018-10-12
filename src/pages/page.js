@@ -154,9 +154,9 @@ export default BasePage.extend({
 		}
 		let events = ['start', 'stop'];
 		_.each(events, event => {
-			this.on(event, () => {
+			this.on(event, (...args) => {
 				_.each(triggersOn, parent => {
-					parent.triggerMethod('page:' + event, this);
+					parent.triggerMethod('page:' + event, this, ...args);
 				});
 			});
 		});
