@@ -59,12 +59,12 @@ export default App.extend({
 		if (this.router instanceof PageRouter) return this.router;
 		return buildByKey(this, 'Router', { ctor: PageRouter });
 	},
-	_onPageStart(page){
-		this.showPage(page);
+	_onPageStart(...args){
+		this.showPage(...args);
 	},
 	showPage: _.noop,
-	_onPageStop(page){
-		this.showPage(page);
+	_onPageStop(...args){
+		this.showPage(...args);
 	},
 	hidePage: _.noop,
 });
