@@ -11,6 +11,7 @@ const Watcher = mix(BaseClass).with(Events).extend({
 	},
 	start(){
 		if (this.isWatching) return;
+		this.isWatching = true;
 		this.listenTo(history, 'route', this.onRoute);
 		this.listenTo(history, 'backroute', this.onBackRoute);
 	},

@@ -14,9 +14,9 @@ const historyApi = {
 		let { trigger } = options;	
 		delete options.trigger;
 	
-		history.navigate(fragment, options);
+		let result = history.navigate(fragment, options);
 	
-		if (trigger) {
+		if (trigger && result != null) {
 			return historyApi.loadUrl(fragment, opts);
 		}
 	
