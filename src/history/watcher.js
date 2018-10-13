@@ -50,7 +50,7 @@ const Watcher = mix(BaseClass).with(Events).extend({
 
 	},
 	goBack(){
-		if (this.canGoBack()) return;
+		if (!this.canGoBack()) return;
 		let last = _.last(this.entries);
 		historyApi.navigate(last.fragment, { trigger: true, routeType: 'backroute', gobackContext: last });
 	},
