@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import { MnObject } from 'bbmn-core';
-import { mix, getOption } from 'bbmn-utils';
+import { mix, getOption, buildViewByKey } from 'bbmn-utils';
 import { startableMixin }  from 'bbmn-components';
 
 import { childrenableMixin } from 'bbmn-mixins';
@@ -165,6 +165,12 @@ export default BasePage.extend({
 		});
 
 		this._triggerOnParentInitiallized = true;
+	},
+	getView(){
+		return this.builView({ model: this.model, collection: this.collection });
+	},
+	builView(options){
+		return buildViewByKey(this, 'Layout', { options });
 	}
 });
 
