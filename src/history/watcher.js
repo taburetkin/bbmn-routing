@@ -23,6 +23,9 @@ const Watcher = mix(BaseClass).with(Events).extend({
 	hasElements(){
 		return this.entries.length > 0;
 	},
+	canGoBack(){
+		return this.hasElement();
+	},
 	onRoute(actionContext){
 
 		if(!this.isActionContext(actionContext))
@@ -47,7 +50,8 @@ const Watcher = mix(BaseClass).with(Events).extend({
 
 	},
 	goBack(){
-		let last = this.hasElements() && _(this.entries).last();
+		if (this.canGoBack()) return;
+		let last = _.last(this.entries);
 		historyApi.navigate(last.fragment, { trigger: true, routeType: 'backroute', gobackContext: last });
 	},
 });
