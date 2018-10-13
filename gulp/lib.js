@@ -41,7 +41,7 @@ let getRollupConfig = (format, babelcfg = babelConfig) => {
 			}),
 			babel(babelcfg)
 		],
-		external: ['jquery','backbone', 'backbone.marionette', 'underscore', 'bbmn-core', 'bbmn-utils', 'bbmn-components', 'bbmn-mixins'],
+		external: ['jquery','backbone', 'backbone.radio', 'backbone.marionette', 'underscore', 'bbmn-core', 'bbmn-utils', 'bbmn-components', 'bbmn-mixins'],
 		output: {
 			format,
 			name: 'bbmn.routing',
