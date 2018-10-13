@@ -23,7 +23,7 @@ export default App.extend({
 		this.on('page:stop', this._onPageStop);
 	},
 	_startHistoryWatcher(){
-		if(this.getOption('historyWatcher')) return;
+		if (!this.getOption('historyWatcher')) return;
 		historyWatcher.start();
 	},
 	_startHistory(){
