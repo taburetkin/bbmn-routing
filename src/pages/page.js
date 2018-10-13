@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import { MnObject } from 'bbmn-core';
 import { mix, getOption } from 'bbmn-utils';
-import { StartableMixin }  from 'bbmn-components';
+import { startableMixin }  from 'bbmn-components';
 
 import { childrenableMixin } from 'bbmn-mixins';
 import RoutesMixin from './routes-mixin.js';
@@ -9,7 +9,7 @@ import RoutesMixin from './routes-mixin.js';
 
 
 
-const BasePage = mix(MnObject).with(childrenableMixin, StartableMixin, RoutesMixin);
+const BasePage = mix(MnObject).with(childrenableMixin, startableMixin, RoutesMixin);
 
 export default BasePage.extend({
 	constructor(opts = {}){
