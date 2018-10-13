@@ -4,10 +4,20 @@ import { mix } from 'bbmn-utils';
 import historyApi from './api';
 
 const Watcher = mix(BaseClass).with(Events).extend({
-	watch(){
+	constructor(){
+		BaseClass.apply(this, arguments);
+		this.isWatching = false;
 		this.entries = [];
+	},
+	start(){
+		if (this.isWatching) return;
 		this.listenTo(history, 'route', this.onRoute);
 		this.listenTo(history, 'backroute', this.onBackRoute);
+	},
+	stop(){
+		this.stopListening(history);
+		this.entries.length = 0;
+		this.isWatching = false;
 	},
 	isActionContext: cntx => _.isObject(cntx) && _.isString(cntx.fragment),
 	hasElements(){
