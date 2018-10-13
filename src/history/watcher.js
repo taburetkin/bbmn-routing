@@ -1,9 +1,9 @@
 import _ from 'underscore';
-import { history, Events }  from 'bbmn-core';
+import { history, Events, BaseClass }  from 'bbmn-core';
+import { mix } from 'bbmn-utils';
 import historyApi from './api';
 
-
-export default _.extend({
+const Watcher = mix(BaseClass).with(Events).extend({
 	watch(){
 		this.entries = [];
 		this.listenTo(history, 'route', this.onRoute);
@@ -40,4 +40,6 @@ export default _.extend({
 		let last = this.hasElements() && _(this.entries).last();
 		historyApi.navigate(last.fragment, { trigger: true, routeType: 'backroute', gobackContext: last });
 	},
-}, Events);
+});
+
+export default new Watcher();
