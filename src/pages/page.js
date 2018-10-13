@@ -42,12 +42,15 @@ export default BasePage.extend({
 	},
 
 	buildChildOptions(options){
-		return _.extend({
-			root: this.getRoot(),
+		let root = this.getRoot();
+		let defs = {
+			root,
 			parent: this.parent,
 			router: this.router,
 			app: this.app,
-		}, options);
+		};
+		let result = _.extend(defs, options);
+		return result;
 	},
 
 	getSiblings(opts = {}){
