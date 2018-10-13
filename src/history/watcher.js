@@ -24,7 +24,7 @@ const Watcher = mix(BaseClass).with(Events).extend({
 		return this.entries.length > 0;
 	},
 	canGoBack(){
-		return this.hasElement();
+		return this.hasElements();
 	},
 	onRoute(actionContext){
 
