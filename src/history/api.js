@@ -2,7 +2,14 @@ import _ from 'underscore';
 import { history } from 'bbmn-core';
 import errorHandler from '../route-error-handler/index.js';
 
+const pathStripper = /#.*$/;
+
 const historyApi = {
+	decodeFragment(fragment){
+		fragment = history.getFragment(fragment || '');
+		fragment = fragment.replace(pathStripper, '');
+		return history.decodeFragment(fragment);
+	},
 	// supports passing options to the callback
 	// by using new version of loadUrl	
 	navigate(fragment, opts){
@@ -11,12 +18,17 @@ const historyApi = {
 			: _.isObject(opts) ? _.clone(opts)
 				: {};
 	
-		let { trigger } = options;	
+		let { trigger } = options;			
 		delete options.trigger;
+		
+		let decodedFragment = this.decodeFragment(fragment);
+		if (history.fragment == decodedFragment) {
+			return;
+		}
+
+		history.navigate(fragment, options);
 	
-		let result = history.navigate(fragment, options);
-	
-		if (trigger && result != null) {
+		if (trigger) {
 			return historyApi.loadUrl(fragment, opts);
 		}
 	
