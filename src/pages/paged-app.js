@@ -24,7 +24,7 @@ export default App.extend({
 	},
 	_startHistoryWatcher(){
 		if(this.getOption('historyWatcher')) return;
-		historyWatcher.watch();
+		historyWatcher.start();
 	},
 	_startHistory(){
 		if (historyApi.isStarted()) return;
