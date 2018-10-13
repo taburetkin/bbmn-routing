@@ -1,25 +1,35 @@
 import _ from 'underscore';
 import { App } from 'bbmn-components';
-import { historyApi } from '../history/index.js';
+import { historyApi, historyWatcher } from '../history/index.js';
 import PageRouter from './page-router.js';
 import Page from './page';
 import { buildByKey } from 'bbmn-utils';
 import { isClass } from 'bbmn-core';
 
 export default App.extend({
+	historyWatcher: false,
+	Router: PageRouter,
+
 	constructor(){
 		
 		this._pages = [];
-
 		App.apply(this, arguments);
+		this._initPageListeners();
+	},
+	_initPageListeners(){
 		this.on('start', this._buildPages);
 		this.on('pages:ready', this._startHistory);
 		this.on('page:start', this._onPageStart);
 		this.on('page:stop', this._onPageStop);
 	},
-	Router: PageRouter,
+	_startHistoryWatcher(){
+		if(this.getOption('historyWatcher')) return;
+		historyWatcher.watch();
+	},
 	_startHistory(){
 		if (historyApi.isStarted()) return;
+
+		this._startHistoryWatcher();
 
 		let options = this.getOption('startHistory');
 		if(!options) { return; }
