@@ -166,11 +166,16 @@ export default BasePage.extend({
 
 		this._triggerOnParentInitiallized = true;
 	},
-	getView(){
-		return this.builView({ model: this.model, collection: this.collection });
+	getView(opts){
+		let options = _.extend({ model: this.model, collection: this.collection }, opts);
+		return this.builView(options);
 	},
+	//good place to override build options, or build itself
 	builView(options){
+		return this._buildViewByKey(options);
+	},
+	_buildViewByKey(options){		
 		return buildViewByKey(this, 'Layout', { options });
-	}
+	},
 });
 
