@@ -167,7 +167,7 @@ export default BasePage.extend({
 		this._triggerOnParentInitiallized = true;
 	},
 	getView(opts){
-		let options = _.extend({ model: this.model, collection: this.collection }, opts);
+		let options = _.extend({ model: this.model, collection: this.collection, page: this }, opts);
 		return this.builView(options);
 	},
 	//good place to override build options, or build itself
