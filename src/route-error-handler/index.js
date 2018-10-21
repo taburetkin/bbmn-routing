@@ -26,21 +26,24 @@ export default {
 		if(_.isFunction(this.handlers[key]))
 			return this.handlers[key];
 	},
-	setHandler(key, handler){
+	setHandler(key, handler, bindTo){
 		if(!_.isString(key) || key === '')
 			throw new Error('setHandler first argument must be a non empty string');
 
 		if (!_.isFunction(handler)) {
 			delete this.handlers[key];
 		} else {
+			if (bindTo) {
+				handler = handler.bind(bindTo);
+			}
 			this.handlers[key] = handler;
 		}
 	},
-	setHandlers(hash){
+	setHandlers(hash, bindTo){
 		let nullable = hash === null;
 		let items = nullable && this.handlers || hash;
 		if(!_.isObject(items)) return;
-		_(items).each((handler, key) => this.setHandler(key, nullable || handler));
+		_(items).each((handler, key) => this.setHandler(key, nullable || handler, bindTo));
 	},
 
 	// should return hash: { 'handler_key': { context: handler_context, args: handler_arguments}}
