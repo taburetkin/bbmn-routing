@@ -11,6 +11,8 @@ export default BaseRouter.extend({
 	callbackAsPromises: true,
 	routeCaseInsensitive: true,
 
+	setTitleOnPageStart : true,
+
 	registerPageRoutes(page){
 		let contexts = page.getRoutesContexts({ reverse: true });
 		_.each(contexts, context => {
@@ -37,22 +39,37 @@ export default BaseRouter.extend({
 
 	},
 	startPage(page, ...args){
-		return this.beforePageStart(page)
+		return this._beforePageStart(page)
 			.then(() => page.start(...args))
-			.then(() => this.afterPageStart(page, ...args));
+			.then(() => this._afterPageStart(page, ...args));
 	},
 
-	beforePageStart(){
+	_beforePageStart(){
+		this.beforePageStart();
 		if (this.previousPage && this.previousPage.isStarted())
 			return this.previousPage.stop();
 		else
 			return Promise.resolve();
 	},
+	beforePageStart(){},
 
-	afterPageStart(page){
+	_afterPageStart(page){
 		this.previousPage = page;
+		this.afterPageStart();
+		this._setPageTitle();
 	},
-
+	afterPageStart(){},
+	_setPageTitle(page){
+		if(!this.getOption('setTitleOnPageStart')) {
+			return;
+		}
+		let title = page.getTitle();
+		this.setPageTitle(title, page);
+	},
+	
+	//implement your set title logic here
+	//accepts: title, page
+	setPageTitle(){},
 	restartLastAttempt(){
 		if(this.lastAttempt)
 			return this.lastAttempt.restart();

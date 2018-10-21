@@ -5,6 +5,7 @@ import PageRouter from './page-router.js';
 import Page from './page';
 import { buildByKey } from 'bbmn-utils';
 import { isClass } from 'bbmn-core';
+import routeErrorHandler from '../route-error-handler';
 
 export default App.extend({
 	historyWatcher: false,
@@ -14,7 +15,13 @@ export default App.extend({
 		
 		this._pages = [];
 		App.apply(this, arguments);
+		this._initRouteErrors();
 		this._initPageListeners();
+	},
+	_initRouteErrors(){
+		let handlers = this.getOption('routeErrors', { args: [ this ]});
+		if(!_.isObject(handlers)) return;
+		routeErrorHandler.setHandlers(handlers);
 	},
 	_initPageListeners(){
 		this.on('start', this._buildPages);
