@@ -181,5 +181,33 @@ export default BasePage.extend({
 	_buildViewByKey(options){		
 		return buildViewByKey(this, 'Layout', { options });
 	},
+
+	getStartPromises(){
+		
+		let promises = this.getOption('startPromises', { args: [ this ]});
+		if(!promises) return;
+
+		return _.map(promises, item =>{
+			if (_.isFunction(item)) {
+				return item.call(this, this);
+			} else {
+				return item;
+			}
+		});
+	},
+	getStopPromises(){
+		
+		let promises = this.getOption('stopPromises', { args: [ this ]});
+		if(!promises) return;
+
+		return _.map(promises, item =>{
+			if (_.isFunction(item)) {
+				return item.call(this, this);
+			} else {
+				return item;
+			}
+		});
+	},	
+
 });
 
