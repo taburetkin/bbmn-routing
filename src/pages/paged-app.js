@@ -21,7 +21,7 @@ export default App.extend({
 	_initRouteErrors(){
 		let handlers = this.getOption('routeErrors', { args: [ this ]});
 		if(!_.isObject(handlers)) return;
-		routeErrorHandler.setHandlers(handlers);
+		routeErrorHandler.setHandlers(handlers, this);
 	},
 	_initPageListeners(){
 		this.on('start', this._buildPages);
