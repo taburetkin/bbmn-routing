@@ -20,7 +20,7 @@ const historyApi = {
 	
 		let { trigger } = options;			
 		delete options.trigger;
-		
+
 		let decodedFragment = this.decodeFragment(fragment);
 		if (history.fragment == decodedFragment) {
 			return;
@@ -34,13 +34,7 @@ const historyApi = {
 	
 	},
 
-	// original loadUrl does not pass options to the callback
-	// and this one does
-	loadUrl(fragment, opts = {}) {
-
-		// If the root doesn't match, no routes can match either.
-		if (!history.matchRoot()) return false;
-
+	execute(fragment, opts){
 		fragment = history.fragment = history.getFragment(fragment);
 
 		let executed = historyApi.executeHandler(fragment, opts);
@@ -48,6 +42,23 @@ const historyApi = {
 			errorHandler.handle('not:found', opts.context, [fragment]);
 		}
 		return executed;
+	},
+
+	// original loadUrl does not pass options to the callback
+	// and this one does
+	loadUrl(fragment, opts = {}) {
+
+		// If the root doesn't match, no routes can match either.
+		if (!history.matchRoot()) return false;
+		return historyApi.execute(fragment, opts);
+
+		// fragment = history.fragment = history.getFragment(fragment);
+
+		// let executed = historyApi.executeHandler(fragment, opts);
+		// if (!executed) {
+		// 	errorHandler.handle('not:found', opts.context, [fragment]);
+		// }
+		// return executed;
 	},
 
 	// default test handler
