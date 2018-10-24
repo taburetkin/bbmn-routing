@@ -1,6 +1,6 @@
 {
   "name": "bbmn-routing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "backbone and marionette routing pack",
   "keywords": [
     "backbone",
@@ -19,8 +19,8 @@
     "backbone.marionette": ">= 3.0.0",
     "bbmn-components": ">= 1.0.0",
     "bbmn-core": ">= 1.0.1",
-    "bbmn-mixins": ">= 1.0.0",
     "bbmn-utils": ">= 1.0.4",
+    "bbmn-mixins": ">= 0.1.0",
     "jquery": ">= 1.0.0",
     "underscore": ">= 1.0.0"
   },
