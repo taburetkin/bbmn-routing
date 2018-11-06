@@ -77,7 +77,7 @@ export default {
 			context.route = config.parentContext.route + '/' + context.route;
 
 		context.getUrl = function(data = {}) {
-			return this.rawRoute.replace(/:([^/?]+)/, (found, group) => {
+			return this.route.replace(/:([^/?]+)/, (found, group) => {
 				return data[group];
 			});
 		};
