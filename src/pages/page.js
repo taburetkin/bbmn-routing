@@ -32,16 +32,16 @@ export default BasePage.extend({
 	getOption(...args){
 		return getOption(this, ...args);
 	},
-	getLabel(){
-		let result = this.getOption('label', { args: [this, this.model]});
+	getLabel(data){
+		let result = this.getOption('label', { args: [this, data]});
 		return result;
 	},
-	getTitle(){
-		let result = this.getOption('title', { args: [this, this.model]});
-		return result || this.getLabel();
+	getTitle(data){
+		let result = this.getOption('title', { args: [this, data]});
+		return result || this.getLabel(data);
 	},
-	getMenuLabel(){
-		let result = this.getOption('menuLabel', { args: [this, this.model], default: this.getLabel()});
+	getMenuLabel(data){
+		let result = this.getOption('menuLabel', { args: [this, data], default: this.getLabel(data)});
 		return result;
 	},
 
