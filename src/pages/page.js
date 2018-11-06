@@ -65,33 +65,33 @@ export default BasePage.extend({
 
 	},
 
-	getHashes(){
+	getHashes(data){
 		let parent = this.getParent();
 		let root = this.getRoot();
 
 		return {
-			path: this.getPathHash(),
-			this: this.getHash(),
-			root: root && root.getHash && root.getHash() || undefined,
-			parent: parent && parent.getHash && parent.getHash() || undefined,
-			children: this.getChildrenHashes(),
-			siblings: this.getSiblingsHashes()
+			path: this.getPathHash(data),
+			this: this.getHash(data),
+			root: root && root.getHash && root.getHash(data) || undefined,
+			parent: parent && parent.getHash && parent.getHash(data) || undefined,
+			children: this.getChildrenHashes(data),
+			siblings: this.getSiblingsHashes(data)
 		};
 	},
-	getPathHash(){
-		let self = this.getHash();
+	getPathHash(data){
+		let self = this.getHash(data);
 		let path = [self];
 		let parent = this.getParent();
 		if (parent && _.isFunction(parent.getPathHash)) {
-			path.unshift(...parent.getPathHash());
+			path.unshift(...parent.getPathHash(data));
 		}
 		return path;
 	},
-	getChildrenHashes(){
-		return this.getChildren({ map: i => i.getHash(), visible: true, });
+	getChildrenHashes(data){
+		return this.getChildren({ map: i => i.getHash(data), visible: true, });
 	},
-	getSiblingsHashes(){
-		return this.getSiblings({ map: i => i.getHash(), visible: true, });
+	getSiblingsHashes(data){
+		return this.getSiblings({ map: i => i.getHash(data), visible: true, });
 	},
 
 	getRoot(){
@@ -119,7 +119,7 @@ export default BasePage.extend({
 		return this.getAllPages(options);
 	},
 
-	getHash(){
+	getHash(data){
 		let context = this.getMainRouteContext();
 
 		if(!_.isObject(context))
@@ -130,9 +130,10 @@ export default BasePage.extend({
 		return {
 			cid: this.cid,
 			parentCid,
-			url: context.route,
-			label: this.getMenuLabel(),
+			label: this.getMenuLabel(data),
 			order: this.order,
+			route: context.route,
+			url: data ? context.getUrl(data) : context.route,
 		};
 	},
 

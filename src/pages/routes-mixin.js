@@ -76,6 +76,12 @@ export default {
 		if(config.relative && config.parentContext && config.parentContext.route)
 			context.route = config.parentContext.route + '/' + context.route;
 
+		context.getUrl = function(data = {}) {
+			return this.rawRoute.replace(/:([^/?]+)/, (found, group) => {
+				return data[group];
+			});
+		};
+
 		return context;
 	},
 	getRoutesConfig(){
