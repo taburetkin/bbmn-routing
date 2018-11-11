@@ -55,8 +55,8 @@ export default BaseRouter.extend({
 
 	_afterPageStart(page){
 		this.previousPage = page;
-		this.afterPageStart();
-		this._setPageTitle();
+		this.afterPageStart(page);
+		this._setPageTitle(page);
 	},
 	afterPageStart(){},
 	_setPageTitle(page){
@@ -69,7 +69,9 @@ export default BaseRouter.extend({
 	
 	//implement your set title logic here
 	//accepts: title, page
-	setPageTitle(){},
+	setPageTitle(title){
+		document.title = title;
+	},
 	restartLastAttempt(){
 		if(this.lastAttempt)
 			return this.lastAttempt.restart();
