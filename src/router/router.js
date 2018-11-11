@@ -43,7 +43,7 @@ const Router = BbRouter.extend({
 	},
 
 	getOption(){
-		return getOption.call(this, ...arguments);
+		return getOption(this, ...arguments);
 	},
 	triggerMethod,
 	/*
