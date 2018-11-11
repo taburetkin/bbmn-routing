@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import { history } from 'bbmn-core';
 
 function toPromise(arg, resolve = true){
 	if (arg instanceof Promise || (arg && _.isFunction(arg.then)))
@@ -45,6 +46,7 @@ export function processCallback(router, actionContext, routeType){
 		router.triggerEvent(routeType, actionContext);
 		if(routeType == 'route' || routeType == 'backroute')
 			router.lastAttempt = actionContext;
+		history.actionContext = actionContext;
 	}
 
 	executeResult.promise.then(
