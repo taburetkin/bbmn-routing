@@ -94,6 +94,16 @@ const historyApi = {
 	},
 	isStarted(){
 		return !!history.started;
+	},
+	getUrlPath(){
+		return history.fragment.split('?')[0];
+	},
+	changeUrlQueryString(qs){
+		let url = this.getUrlPath();
+		if(qs){
+			url = [url, qs].join('?');
+		}
+		return this.mavigate(url, { trigger: false });
 	}
 };
 
