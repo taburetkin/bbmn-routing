@@ -103,7 +103,7 @@ const historyApi = {
 		if(qs){
 			url = [url, qs].join('?');
 		}
-		return this.mavigate(url, { trigger: false });
+		return this.navigate(url, { trigger: false });
 	}
 };
 
