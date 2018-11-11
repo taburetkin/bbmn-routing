@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import {  getOption, triggerMethod, paramsToObject as paramStringToObject } from 'bbmn-utils';
+import {  getOption, triggerMethod, paramsToObject } from 'bbmn-utils';
 import { Router as BbRouter, history } from 'bbmn-core';
 
 //import paramStringToObject from '../../../utils/params-to-object/index.js';
@@ -260,7 +260,11 @@ const Router = BbRouter.extend({
 
 	//converts string to object
 	//default implementation, can be overriden by user
-	queryStringParser: paramStringToObject,	
+	queryStringParserOptions:{ complex: true },
+	queryStringParser(string, opts){
+		let options = _.extend({}, this.getOption('queryStringParserOptions'), opts);
+		return paramsToObject(string, options);
+	},	
 
 	// navigate(...args){
 	// 	historyNavigate(...args);
