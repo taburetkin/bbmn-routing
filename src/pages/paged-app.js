@@ -81,7 +81,7 @@ export default App.extend({
 	},
 	showPage: _.noop,
 	_onPageStop(...args){
-		this.showPage(...args);
+		this.hidePage(...args);
 	},
 	hidePage: _.noop,
 });
