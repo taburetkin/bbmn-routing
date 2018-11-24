@@ -67,17 +67,19 @@ export default BasePage.extend({
 
 	getHashes(data){
 		let page = this;
+		let parentHash = false;
 		if (this.isEntityPage) {
 			page = page.getParent();
+			parentHash = true;
 		}
-		return this._getPageHashes(page, data);
+		return this._getPageHashes(page, data, parentHash);
 	},
-	_getPageHashes(page, data){
+	_getPageHashes(page, data, isParentHash){
 		let parent = page.getParent();
 		let root = page.getRoot();
 
 		return {
-			isEntityPage: page.isEntityPage,
+			isParentHash,
 			path: page.getPathHash(data),
 			this: page.getHash(data),
 			root: root && root.getHash && root.getHash(data) || undefined,
