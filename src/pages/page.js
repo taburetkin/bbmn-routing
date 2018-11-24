@@ -66,16 +66,24 @@ export default BasePage.extend({
 	},
 
 	getHashes(data){
-		let parent = this.getParent();
-		let root = this.getRoot();
+		let page = this;
+		if (this.isEntityPage) {
+			page = page.getParent();
+		}
+		return this._getPageHashes(page, data);
+	},
+	_getPageHashes(page, data){
+		let parent = page.getParent();
+		let root = page.getRoot();
 
 		return {
-			path: this.getPathHash(data),
-			this: this.getHash(data),
+			isEntityPage: page.isEntityPage,
+			path: page.getPathHash(data),
+			this: page.getHash(data),
 			root: root && root.getHash && root.getHash(data) || undefined,
 			parent: parent && parent.getHash && parent.getHash(data) || undefined,
-			children: this.getChildrenHashes(data),
-			siblings: this.getSiblingsHashes(data)
+			children: page.getChildrenHashes(data),
+			siblings: page.getSiblingsHashes(data)
 		};
 	},
 	getPathHash(data){
@@ -145,11 +153,14 @@ export default BasePage.extend({
 
 		let { visible } = opts;
 
-		if(visible && (item.visible === false || item.hidden === true))
+		if (item.isEntityPage) return;
+
+		if (visible && (item.visible === false || item.hidden === true))
 			return;
 
 		return item;
 	},
+
 	initializeEvents(){
 		if (this._triggerOnParentInitiallized) return;
 
