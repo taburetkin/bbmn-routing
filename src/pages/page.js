@@ -195,7 +195,7 @@ export default BasePage.extend({
 	_buildViewByKey(options){		
 		let view = buildViewByKey(this, 'Layout', { options });
 		if(!view) {
-			view = buildViewByKey(this, 'layout', { options });
+			view = buildViewByKey(this, 'layout', { defaultOptions: options });
 		}
 		return view;
 	},
