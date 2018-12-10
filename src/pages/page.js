@@ -186,14 +186,18 @@ export default BasePage.extend({
 	},
 	getView(opts){
 		let options = _.extend({ model: this.model, collection: this.collection, page: this }, opts);
-		return this.builView(options);
+		return this.buildView(options);
 	},
 	//good place to override build options, or build itself
-	builView(options){
+	buildView(options){
 		return this._buildViewByKey(options);
 	},
 	_buildViewByKey(options){		
-		return buildViewByKey(this, 'Layout', { options });
+		let view = buildViewByKey(this, 'Layout', { options });
+		if(!view) {
+			view = buildViewByKey(this, 'layout', { options });
+		}
+		return view;
 	},
 
 	getStartPromises(){
