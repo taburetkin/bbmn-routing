@@ -19,7 +19,7 @@ const historyApi = {
 				: {};
 	
 		let { trigger } = options;			
-		delete options.trigger;
+		options.trigger = false;
 
 		let decodedFragment = this.decodeFragment(fragment);
 		if (history.fragment == decodedFragment) {
