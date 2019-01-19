@@ -24,10 +24,20 @@ export default App.extend({
 		routeErrorHandler.setHandlers(handlers, this);
 	},
 	_initPageListeners(){
-		this.on('start', this._buildPages);
-		this.on('pages:ready', this._startHistory);
-		this.on('page:start', this._onPageStart);
-		this.on('page:stop', this._onPageStop);
+		this.once({
+			'start':this._buildPages,
+			'pages:ready': this.render,
+			'layout:ready': this._startHistory
+		});
+		this.on({
+			'page:start': this._onPageStart,
+			'page:stop': this._onPageStop
+		});
+
+		// this.on('start', this._buildPages);
+		// this.on('pages:ready', this._startHistory);
+		// this.on('page:start', this._onPageStart);
+		// this.on('page:stop', this._onPageStop);
 	},
 	_startHistoryWatcher(){
 		if (!this.getOption('historyWatcher')) return;
