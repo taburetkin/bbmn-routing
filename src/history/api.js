@@ -4,6 +4,10 @@ import errorHandler from '../route-error-handler/index.js';
 
 const pathStripper = /#.*$/;
 
+
+
+
+
 const historyApi = {
 	decodeFragment(fragment){
 		fragment = history.getFragment(fragment || '');
@@ -35,7 +39,8 @@ const historyApi = {
 	},
 
 	execute(fragment, opts){
-		fragment = history.fragment = history.getFragment(fragment);
+		//fragment = history.fragment = history.getFragment(fragment);
+		fragment = history.getFragment(fragment);
 
 		let executed = historyApi.executeHandler(fragment, opts);
 		if (!executed) {
