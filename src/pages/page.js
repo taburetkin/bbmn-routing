@@ -170,7 +170,7 @@ export default BasePage.extend({
 	},
 	getRouteData(ac) {
 		let custom = this.getOption('data', { args: [this, ac] });
-		return _.extend({}, this.getDefaultData(ac), custom);
+		return _.extend({}, this.getDefaultRouteData(ac), custom);
 	},
 
 	_childFilter(item, index, opts = {}) {
