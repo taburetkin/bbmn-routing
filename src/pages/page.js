@@ -66,6 +66,9 @@ export default BasePage.extend({
 	},
 
 	getHashes(data){
+		
+		data = this._normalizeHashData(data, true);
+
 		let page = this;
 		let parentHash = false;
 		if (this.isEntityPage) {
@@ -112,28 +115,37 @@ export default BasePage.extend({
 		}
 	},
 	getAllPages(opts = {}){
-		
-		let options = _.extend({}, opts, { includeSelf: true });
+		let data = this._normalizeHashData(opts.data, true);
+		let options = _.extend({ data }, opts, { includeSelf: true });
 		delete options.map;
 		let pages = this.getRoot().getAllChildren(options);
 
 		if (_.isFunction(opts.map)) {
-			return _(pages).chain().map(opts.map).filter(f => !!f).value();
+			return _(pages).chain().map(page => opts.map(page, options)).filter(f => !!f).value();
 		} else {
 			return pages;
 		}
 	},
 
-	getAllHashes(opts = {}){
-		let options = _.extend({ map: i => i.getHash(), visible: true, }, opts);
+	getAllHashes(data, opts = {}){
+		data = this._normalizeHashData(data, true);
+		let options = _.extend({ map: i => i.getHash(data), visible: true, }, opts);
 		return this.getAllPages(options);
 	},
 
-	getHash(data){
+	_normalizeHashData(data, root){
+		if (root && !data) {
+			let ac = this.getLastActionContext();
+			data = this.getRouteData(ac);
+		}
+		return data;
+	},
+	getHash(data, root = true){
 		let context = this.getMainRouteContext();
-
 		if(!_.isObject(context))
 			return;
+
+		data = this._normalizeHashData(data, root);
 
 		let parent = this.getParent();
 		let parentCid = parent && parent.cid || undefined;		
@@ -144,9 +156,22 @@ export default BasePage.extend({
 			order: this.order,
 			route: context.route,
 			url: data ? context.getUrl(data) : context.route,
+			icon: this.getPageIcon()
 		};
 	},
-
+	getPageIcon() {
+		return this.icon;
+	},
+	getLastActionContext(){
+		return (this['startable.start.lastArguments'] || [])[1];
+	},
+	getDefaultRouteData(ac = {}){
+		return _.extend({}, ac.qs, ac.args);
+	},
+	getRouteData(ac) {
+		let custom = this.getOption('data', { args: [this, ac] });
+		return _.extend({}, this.getDefaultData(ac), custom);
+	},
 
 	_childFilter(item, index, opts = {}) {
 		let base = BasePage.prototype._childFilter;
