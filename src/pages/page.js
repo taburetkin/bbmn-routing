@@ -162,8 +162,17 @@ export default BasePage.extend({
 	getPageIcon() {
 		return this.icon;
 	},
-	getLastActionContext(){
-		return (this['startable.start.lastArguments'] || [])[1];
+	_getLastStartArguments(){
+		return (this['startable.start.lastArguments'] || []);
+	},
+	_lastActionContextIndex: 1,
+	getLastActionContext({ original } = {}){
+		let startArgs = this._getLastStartArguments();
+		let ac = startArgs[this._lastActionContextIndex];
+		if (ac && original && ac.original) {
+			ac = ac.original;
+		}
+		return ac;
 	},
 	getDefaultRouteData(ac = {}){
 		return _.extend({}, ac.qs, ac.args);
