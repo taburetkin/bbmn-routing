@@ -40,15 +40,20 @@ export default {
 		if(_.isString(routes))
 			routes = [routes];
 
-		let result = [];
 		let config = this.getRoutesConfig();
-		_(routes).each((route, index) => {
+		let result = _.reduce(routes, (memo, route, index) => {
 			let context = this._normalizeRoutesContextRoute(route, index, config);
-			_.isObject(context) && (result.push(context));
-		});
+			context = this.fixRouteContext(context);
+			if (_.isObject(context)) {
+				memo.push(context);
+			}
+			return memo;
+		}, []);
+
 		this.routesContext = result;
 		return this.routesContext;
 	},
+	fixRouteContext: context => context,
 	_normalizeRoutesContextRoute(arg, index, config = {}){
 		if(arguments.length < 2){
 			config = this.getRoutesConfig();
