@@ -80,9 +80,9 @@ export default {
 				
 		if(config.relative && config.parentContext && config.parentContext.route)
 			context.route = config.parentContext.route + '/' + context.route;
-
+		context.routeForGetUrl = context.url;
 		context.getUrl = function(data = {}) {
-			return this.route.replace(/:([^/?]+)/, (found, group) => {
+			return this.routeForGetUrl.replace(/:([^/?]+)/, (found, group) => {
 				return data[group];
 			});
 		};
