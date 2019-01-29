@@ -155,7 +155,7 @@ export default BasePage.extend({
 			label: this.getMenuLabel(data),
 			order: this.order,
 			route: context.route,
-			url: data ? context.getUrl(data) : context.route,
+			url: context.getUrl(data),
 			icon: this.getPageIcon()
 		};
 	},
