@@ -152,7 +152,8 @@ export default BasePage.extend({
 		return {
 			cid: this.cid,
 			parentCid,
-			label: this.getMenuLabel(data),
+			menuLabel: this.getMenuLabel(data),
+			label: this.getLabel(data),
 			order: this.order,
 			route: context.route,
 			url: context.getUrl(data),
